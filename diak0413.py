@@ -1,4 +1,4 @@
-class diak:
+class Diak:
     def __init__(self, nev, osztaly, atlag):
         self.nev = nev
         self.osztaly = osztaly
@@ -7,39 +7,34 @@ class diak:
 
 diakok = []
 
-f = open("DIAK/diak.txt", encoding="utf-8")
-for sor in f:
-    sor = sor.strip()
-    if sor != "":
-        adatok = sor.split(";")
-        nev = adatok[0]
-        osztaly = adatok[1]
-        atlag = adatok[2]
+with open("diak.txt", encoding="utf-8") as f:
+    for sor in f:
+        sor = sor.strip()
+        if sor != "":
+            adatok = sor.split(";")
+            nev = adatok[0]
+            osztaly = adatok[1]
+            atlag = adatok[2]
 
-        diak = diak(nev, osztaly, atlag)
-        diakok.append(diak)
-
-f.close()
-
+            uj_diak = Diak(nev, osztaly, atlag)
+            diakok.append(uj_diak)
 
 print("letszam:", len(diakok))
 
-
 osszeg = 0
 for d in diakok:
-    osszeg = osszeg + d.atlag
+    osszeg += d.atlag
 
 atlag = osszeg / len(diakok)
-print("Csoportátlag:", round(atlag, 2))
+print("csoportatlag:", round(atlag, 2))
 
+if diakok:
+    legjobb = diakok[0]
+    for d in diakok:
+        if d.atlag > legjobb.atlag:
+            legjobb = d
 
-legjobb = diakok[0]
-for d in diakok:
-    if d.atlag > legjobb.atlag:
-        legjobb = d
-
-print("legjobb tanulo:", legjobb.nev, legjobb.atlag)
-
+    print("legjobb tanulo:", legjobb.nev, legjobb.atlag)
 
 evfolyamok = []
 
@@ -57,4 +52,4 @@ for ev in range(9, 13):
 if len(hianyzo) == 0:
     print("van minden evfolyam")
 else:
-    print("hiányzo evfolyam:", hianyzo)
+    print("hianyzo evfolyam:", hianyzo)
